@@ -1,5 +1,5 @@
 {
-  "name": "Employee Management System",
+  "name": "employee_db",
   "version": "1.0.0",
   "description": "employee database",
   "main": "index.js",
