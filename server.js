@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 const table = require('console.table');
 
-const PORT = process.env.PORT || 3306;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -15,7 +15,7 @@ const db = mysql.createConnection(
     user: 'root',
     PORT: 3306,
     password: 'Password7',
-    database: 'Employee DB'
+    database: 'employee_db'
   },
   console.log(`Connected to the Employee DB.`)
 );
