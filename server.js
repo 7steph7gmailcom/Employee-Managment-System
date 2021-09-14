@@ -1,6 +1,6 @@
 const express = require('express');
-const mysql = require('mysql2');
 const inquirer = require('inquirer');
+const mysql = require('mysql2');
 const table = require('console.table');
 
 const PORT = process.env.PORT || 3001;
@@ -20,7 +20,7 @@ const db = mysql.createConnection(
   console.log(`Connected to the Employee DB.`)
 );
 
-// Query database
+// Database query
 db.query('SELECT * FROM Employee DB', function (err, results) {
     console.log(results);
   });
@@ -33,12 +33,5 @@ db.query('SELECT * FROM Employee DB', function (err, results) {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
-// async function main() {
-//     // get the client
-//     const mysql = require('mysql2/promise');
-//     // create the connection
-//     const connection = await mysql.createConnection({host:'localhost', user: 'root', database: 'test'});
-//     // query database
-//     const [rows, fields] = await connection.execute('SELECT * FROM `table` WHERE `name` = ? AND `age` > ?', ['Morty', 14]);
-//   }
+
 
