@@ -7,7 +7,7 @@ Role.belongsTo(Department, {
   foreignKey: "department_id",
 });
 
-//create he association from the car side
+//create association 
 
 Department.hasMany(Role, {
   foreignKey: "department_id",
@@ -19,14 +19,11 @@ Employee.belongsTo(Role, {
   foreignKey: "role_id",
 });
 
-//employee has has one manager or null if manager BOOLEAN? if manager remove foreing id?
+//employee has one manager 
 
 Role.hasMany(Employee, {
   foreignKey: "role_id",
 });
 
-// Employee.hasOne(Employee, {
-//   foreignKey: "manager_id",
-// });
 
 module.exports = { Department, Employee, Role };

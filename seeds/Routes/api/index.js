@@ -1,10 +1,10 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const { init } = require("./models/Department");
-const { Department, Employee, Role, } = require("./models");
+const { init } = require("../../../models/Department");
+const { Department, Employee, Role, } = require("../../../models");
 const cTable = require("console.table");
 const connection = require("./config/connection");
-const uuid = require("./helpers/uuid");
+const uuid = require("../../../helpers/uuid");
 const sequelize = require("./config/connection");
 
 
@@ -277,36 +277,44 @@ initQuestions = () => {
         name: "newRole",
         choices: () => {
           [" "];
-         
+
+          lastQuestion();
+
         },
       },
     ]);
+  }
 
 
-//Final question
-function finalQuestion() {
-    inquirer
-      .prompt([
-        {
-          type: "list",
-          message: "What would you like to do next?",
-          choices: ["Go back to Start", "Exit"],
-          name: "finalQuestion",
-        },
-      ])
-      .then((answer) => {
-        if (answer.finalQuestion !== "Exit") {
-          //goes back to the beginning
-          init();
-        } else {
-          //clears, logs and ends connection
-          console.clear();
-          logo();
-          console.log("Goodbye!");
-          connection.end();
-        }
-      });
+  function exitApp() {
+    console.log("GOODBYE!");
   }
   
-  logo();
-  init()
+  initQuestions();
+
+//Final question
+// function finalQuestion() {
+//     inquirer
+//       .prompt([
+//         {
+//           type: "list",
+//           message: "What would you like to do next?",
+//           choices: ["Go back to Start", "Exit"],
+//           name: "finalQuestion",
+//         },
+//       ])
+//       .then((answer) => {
+//         if (answer.finalQuestion !== "Exit") {
+//           //goes back to the beginning
+//           init();
+//         } else {
+//           //clears, logs and ends connection
+//           console.clear();
+//           logo();
+//           console.log("Goodbye!");
+//           connection.end();
+//         }
+//       });
+//   }
+  
+//   initQuestions();
