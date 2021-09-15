@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const { init } = require("./models/Department");
-const { Department, Employee, Role,  } = require("./models");
+const { Department, Employee, Role, } = require("./models");
 const cTable = require("console.table");
 const connection = require("./config/connection");
 const uuid = require("./helpers/uuid");
@@ -168,7 +168,7 @@ initQuestions = () => {
           : role === "Regional Director in Charge of Sales"
           ? (roleId = 10)
           : role === "Sales Representative"
-          ? (roleId = 11)
+          ? (roleId = 11):
         
         manager === "Ed Truck"
           ? (managerId = 1)
@@ -181,7 +181,7 @@ initQuestions = () => {
           : manager === "Andy Bernard"
           ? (managerId = 10)
           ? (managerId = null)
-          : console.log("ERROR")
+          : console.log("ERROR"):
   
         Employee.create({
           first_name: response.firstName,
@@ -309,5 +309,4 @@ function finalQuestion() {
   }
   
   logo();
-  init();
-      
+  init()
