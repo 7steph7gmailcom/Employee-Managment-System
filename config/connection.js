@@ -21,6 +21,5 @@ var connection = mysql.createConnection({
   database: "Employee_db",
 });
 
-
 module.exports = connection;
 module.exports = sequelize;

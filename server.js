@@ -15,7 +15,7 @@ const db = mysql.createConnection(
     user: 'root',
     PORT: 3306,
     password: 'Password7',
-    database: 'employee_db'
+    database: 'Employee_db'
   },
   console.log(`Connected to the Employee DB.`)
 );
