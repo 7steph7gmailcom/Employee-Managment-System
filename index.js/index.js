@@ -99,7 +99,7 @@ async function viewEmp() {
         {
             type: "list",
             name: "managerResponse",
-            message: "Who is your manager?",
+            message: "Who is your Manager?",
             choices: ["Ed  Truck", "Michael Scott", "Dwight K Schrute", "Jim Halpert", "Andy Bernard", "I am a Manager"],
           },
         ])
@@ -171,3 +171,189 @@ async function viewEmp() {
       initQuestions();
     });
 };
+async function updateEmp() {
+    const emp = await Employee.findAll();
+    const stringEmp = JSON.stringify(emp);
+    const parseEmp = JSON.parse(stringEmp);
+    let names;
+    workers = () => {
+      parseEmp.forEach((key) => {
+        const firstName = key.first_name;
+        const lastName = key.last_name;
+  
+
+        var obj = parseEmp[key];
+        names = firstName + " " + lastName;
+        return names;
+      });
+    };
+    workers();
+    console.log(names);
+    const { worker, newrole } = await inquirer.prompt([
+      {
+        type: "list",
+        message: "Choose an employee to update:",
+        name: "worker",
+        choices: [names],
+  
+  
+        () => {
+        console.log(parseEmp);
+        return parseEmp;
+        },
+      },
+      {
+        type: "list",
+        message: "What is this employee's new role?",
+        name: "newRole",
+        choices: () => {
+          [""];
+          updating role id
+          workers = () => {
+            parseEmp.forEach((key) => {
+              const firstName = key.first_name;
+  
+  
+              console.log(firstName);
+              // var obj = parseEmp[key];
+  
+  
+              let names = key.first_name + " " + key.last_name;
+  
+  
+              return names;
+            });
+        };
+    },
+},
+]);
+  sequelize.query(
+    // updated employee with the user provided role id and last name
+    "UPDATE employees SET ? WHERE ?",
+    [
+      {
+        role_id: newrole,
+      },
+      {
+        last_name: worker,
+      },
+    ],
+    function (err, res) {
+      if (err) {
+        console.log(err);
+      }
+      console.log(res.affectedRows + " employee updated!\n");
+      console.table(employee);
+
+
+      start();
+    }
+  );
+}
+async function viewRole() {
+    console.log("\n ROLES\n");
+    const rolesData = await Role.findAll();
+    const roles = JSON.stringify(rolesData);
+  
+  
+    console.table(JSON.parse(roles));
+    initQuestions();
+  }
+  
+  
+  addRole = () => {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "roleName",
+          message: "Please enter the name of the role",
+        },
+        {
+          type: "input",
+          name: "roleSalary",
+          message: "What is the salary of the role?",
+  
+        },
+        {
+          type: "list",
+          name: "departmentRole",
+          message: "Which department does this role belong in?",
+          choices: ["Management", "Accounting", "Customer Service", "Communitcations", "Quality Assurance", "Human Resources", "Sales"],
+        },
+      ])
+      .then((response) => {
+        const department = response.departmentRole;
+  
+  
+        let departId;
+  
+  
+        department === "Managment"
+          ? (departId = 1)
+
+          : department === "Accounting"
+          ? (departId = 3)
+
+          : department === "Customer Service"
+          ? (departId = 4)
+
+          : department === "Communications"
+          ? (departId = 5)
+
+          : department === "Quality Assurance"
+          ? (departId = 6)
+
+          : department === "Human Resources"
+          ? (departId = 2)
+
+          : department === "Sales"
+          ? (departId = 7)
+          
+          : console.log("error");
+
+          Role.create({
+	        title: response.roleName,
+	        salary: response.roleSalary,
+	        department_id: departId,
+	      });
+	      initQuestions();
+	    });
+	};
+	
+
+	async function viewDep() {
+	  console.log("\n DEPARTMENTS\n");
+	  const depData = await Department.findAll();
+	  const deps = JSON.stringify(depData);
+	
+
+	  console.table(JSON.parse(deps));
+	  initQuestions();
+	}
+	
+
+	addDep = () => {
+	  inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "departmentName",
+          message: "Please enter the name of the Department",
+        },
+      ])
+      .then((response) => {
+        Department.create({
+          name: response.departName,
+        });
+        initQuestions();
+      });
+  };
+  
+  function exitApp() {
+    console.log("Thank You");
+  }
+  
+  
+  initQuestions();
+  

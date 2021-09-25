@@ -1,23 +1,30 @@
 [
     {
-      "name": "Managment"
+      "name": "Managment",
+      "department_id": 1
     },
     {
-      "name": "Accounting"
+      "name": "Accounting",
+      "department_id": 3
     },
     {
-      "name": "Customer Service"
+      "name": "Customer Service",
+      "department_id": 4
     },
     {
-      "name": "Communications"
+      "name": "Communications",
+      "department_id": 5
     },
     {
-      "name": "Quality Assurance"
+      "name": "Quality Assurance",
+      "department_id": 6
     },
     {
-      "name": "Human Resources"
+      "name": "Human Resources",
+      "department_id": 2
     },
     {
-      "name": "Sales"
+      "name": "Sales",
+      "department_id": 7
     }
   ]
