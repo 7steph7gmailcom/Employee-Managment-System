@@ -2,12 +2,18 @@ const express = require('express');
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const table = require('console.table');
+const sequelize = require("./config/connection")
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+
+// sequelize.sync().then(() => {
+ 
+// })
 
 const db = mysql.createConnection(
   {
@@ -17,11 +23,11 @@ const db = mysql.createConnection(
     password: 'Password7',
     database: 'Employee_db'
   },
-  console.log(`Connected to the Employee DB.`)
+  console.log(`Connected to the Employee_db`)
 );
 
 // Database query
-db.query('SELECT * FROM Employee DB', function (err, results) {
+db.query('SELECT * FROM Employee_db', function (err, results) {
     console.log(results);
   });
   
@@ -30,8 +36,8 @@ db.query('SELECT * FROM Employee DB', function (err, results) {
     res.status(404).end();
   });
 
-app.listen(PORT, () => {
+
+  app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
-
 

@@ -22,7 +22,7 @@ const role = Role.init(
     department_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "department",
+        model: "Department",
         key: "id",
       },
     },
@@ -32,7 +32,7 @@ const role = Role.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "role",
+    modelName: "Role",
   }
 );
 module.exports = Role;
