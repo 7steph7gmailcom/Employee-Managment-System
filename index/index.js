@@ -149,7 +149,7 @@ addEmployee = () => {
     ? (roleId = 11)
     : console.log("error");
 
-    
+
     manager === "Ed Truck"
     ? (managerId = 1)
 
@@ -167,5 +167,64 @@ addEmployee = () => {
 
     : manager === "I am a manager"
     ? (managerId = null)
+    : console.log("ERROR");
+
+    Employee.create({
+      first_name: response.firstName,
+      last_name: response.lastName,
+      role_id: roleId,
+      manager_id: managerId,
+    });
+    initQuestions();
+  });
+};
+
+async function updateEmployee() {
+  const emp = await Employee.findAll();
+  const stringEmp = JSON.stringify(emp);
+  const parseEmp = JSON.parse(stringEmp);
+  let names;
+  workers = () => {
+    parseEmp.forEach((key) => {
+      const firstName = key.first_name;
+      const lastName = key.last_name;
+
+      names = firstName + " " + lastName;
+      return names;
+    });
+  };
+
+  workers();
+    console.log(names);
+    const { worker, newRole } = await inquirer.prompt([
+      {
+        type: "list",
+        message: "Choose an employee to update:",
+        name: "worker",
+        choices: [names],
+  
+        // () => {
+        // console.log(parseEmp);
+        // return parseEmp;
+        // },
+      },
+      {
+        type: "list",
+        message: "What is this employee's new role?",
+        name: "newRole",
+        choices: () => {
+          [""];
+          //           updating role id
+          //           workers = () => {
+          //             parseEmp.forEach((key) => {
+          //               const firstName = key.first_name;
+            
+            
+          //               console.log(firstName);
+          //               // var obj = parseEmp[key];
+          
+
+
+
 
 
