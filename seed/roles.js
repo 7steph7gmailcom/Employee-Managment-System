@@ -62,8 +62,8 @@
 // ]
 
 
-INSERT INTO role(id, title, salary, department_id)
-VALUES
+// INSERT INTO role(id, title, salary, department_id)
+// VALUES
     (1, "Branch Manager", 120000, 1),
  
     (2, "Regional Manager", 80000, 1),

@@ -86,8 +86,8 @@
 // ]
 
 
-INSERT INTO employee(id, first_name, last_name, role_id, manager_id)
-VALUES
+// INSERT INTO employee(id, first_name, last_name, role_id, manager_id)
+// VALUES
     (1, "Ed", "Truck", 1, 0),
  
     (2, "Michael", "Scott", 2, 1),

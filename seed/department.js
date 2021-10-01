@@ -32,8 +32,8 @@
 
 
 
-  INSERT INTO department(id, name)            
-  VALUES
+  // INSERT INTO department(id, name)            
+  // VALUES
   (1, "Managment"),        
   (3, "Accounting"),              
   (4, "Customer Service"),            
