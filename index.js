@@ -1,6 +1,8 @@
 const inquirer = require("inquirer");
 let Database = require("./config/connection");
-// require('dotenv').config();
+require('dotenv').config();
+
+
 const db = new Database({
     host: "localhost",
     port: 3306,
