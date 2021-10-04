@@ -5,7 +5,7 @@
 #### This weeks project was to create a command line application using NodeJS. A user should have the ability to scroll through an employee roster and either chose to view all employees within a department, view salaries, view roles or add an employee to the database. MySQLWorkBench was utilized as our database in this project.
 
 ## Screencastify link of Finished Project
-
+https://watch.screencastify.com/v/tVjBi3xtnlcc6eXxJBPK
 
 
 ## Technology Used
