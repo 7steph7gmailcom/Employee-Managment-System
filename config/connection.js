@@ -1,25 +1,32 @@
-const Sequelize = require("sequelize");
 const mysql = require("mysql2");
-require("dotenv").config();
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: "localhost",
-    dialect: "mysql",
-    port: 3306,
+
+class Database {
+  constructor( config ) {
+      this.connection = mysql.createConnection( config );
   }
-);
+  query( req, res ) {
+      return new Promise( ( resolve, reject ) => {
+          this.connection.query( req, res, ( err, rows ) => {
+              if ( err ) {
+                  console.log(err);
+                  console.log("");
+                  return reject( err );
+              }
+              resolve( rows );
+          } );
+      } );
+  }
+  close() {
+      return new Promise( ( resolve, reject ) => {
+          this.connection.end( err => {
+              if ( err )
+                  return reject( err );
+              resolve();
+          } );
+      } );
+  }
+}
 
-var connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "Password7",
-  database: "Employee_db",
-});
 
-module.exports = connection;
-module.exports = sequelize;
+module.exports = Database;
