@@ -1,67 +1,69 @@
-const {prompt} = require("inquirer");
-const fs = require("fs");
-// const { init } = require("./models/Department");
-const { Employee, Role, Department } = require("./models");
-const cTable = require("console.table");
-const connection = require("./config/connection");
-const uuid = require("./helpers/uuid");
-const sequelize = require("./config/connection");
+const inquirer = require("inquirer");
+let Database = require("./config/connection");
+// require('dotenv').config();
 
+const db = new Database({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "Password7",
+    database: "employee"
+  });
+  
 
+async function getManagerNames() {
+    let query = "SELECT * FROM employee manager_id";
 
-init()
-function init() {
-  console.log("initPrompt")
-  initQuestions()
+    const rows = await db.query(query);
+
+    let employeeNames = [];
+    for(const employee of rows) {
+        employeeNames.push(employee.first_name + " " + employee.last_name);
+    }
+    return employeeNames;
 }
 
-function initQuestions() {
-    prompt
-      ([
-        {
-          type: "list",
-          name: "initQuestions",
-          message: "What would you like to do?",
-          choices: [
-            "View all employees",
-            "Add employee",
-            "Update employee role",
-            "View all roles",
-            "Add role",
-            "View all departments",
-            "Add department",
-            "I WOULD LIKE TO EXIT APPLICATION",
-          ],
-        },
-      ])
-      .then((response) => {
-        const userAction = response.initQuestions;
-        userAction === "View all employees"
-        ? viewEmployee()
+async function getRoles() {
+  let query = "SELECT title FROM role";
+  const rows = await db.query(query);
+  
+  let roles = [];
+  for(const row of rows) {
+      roles.push(row.title);
+  }
 
-        : userAction === "Add employee"
-        ? addEmployee()
+  return roles;
+}
 
-        : userAction === "Update employee role"
-        ? updateEmployee()
+async function getDepartmentNames() {
+  let query = "SELECT name FROM department";
+  const rows = await db.query(query);
 
-        : userAction === "View all roles"
-        ? viewRole()
 
-        : userAction === "Add role"
-        ? addRole()
+  let departments = [];
+  for(const row of rows) {
+      departments.push(row.name);
+  }
 
-        : userAction === "View all departments"
-        ? viewDepartment()
+  return departments;
+}
 
-        : userAction === "Add department"
-        ? addDepartment()
 
-        : userAction === "I WOULD LIKE TO EXIT APPLICATION"
-        ? exitApp()
-        : console.log("error");
-    });
-};
+async function getDepartmentId(departmentName) {
+  let query = "SELECT * FROM department WHERE department.name=?";
+  let res = [departmentName];
+  const rows = await db.query(query, res);
+  return rows[0].id;
+}
+
+
+async function getRoleId(roleName) {
+  let query = "SELECT * FROM role WHERE role.title=?";
+  let res = [roleName];
+  const rows = await db.query(query, res);
+  return rows[0].id;
+}
+
 
 
 
