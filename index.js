@@ -150,3 +150,107 @@ async function updateEmployeeRole(employeeInfo) {
   const rows = await db.query(query, res);
   console.log(`Updated employee ${employee[0]} ${employee[1]} with role ${employeeInfo.role}`);
 }
+
+
+async function addEmployee(employeeInfo) {
+  let roleId = await getRoleId(employeeInfo.role);
+  let managerId = await getEmployeeId(employeeInfo.manager);
+
+  
+  let query = "INSERT into employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)";
+  let res = [employeeInfo.first_name, employeeInfo.last_name, roleId, managerId];
+  const rows = await db.query(query, res);
+  console.log(`Added employee ${employeeInfo.first_name} ${employeeInfo.last_name}.`);
+}
+
+
+async function removeEmployee(employeeInfo) {
+  const employeeName = getFirstAndLastName(employeeInfo.employeeName);
+  
+  let query = "DELETE from employee WHERE first_name=? AND last_name=?";
+  let res = [employeeName[0], employeeName[1]];
+  const rows = await db.query(query, res);
+  console.log(`Employee removed: ${employeeName[0]} ${employeeName[1]}`);
+}
+
+
+async function addDepartment(departmentInfo) {
+  const departmentName = departmentInfo.departmentName;
+  let query = 'INSERT into department (name) VALUES (?)';
+  let res = [departmentName];
+  const rows = await db.query(query, res);
+  console.log(`Added department named ${departmentName}`);
+}
+
+
+async function addRole(roleInfo) {
+  
+  const departmentId = await getDepartmentId(roleInfo.departmentName);
+  const salary = roleInfo.salary;
+  const title = roleInfo.roleName;
+  let query = 'INSERT into role (title, salary, department_id) VALUES (?,?,?)';
+  let res = [title, salary, departmentId];
+  const rows = await db.query(query, res);
+  console.log(`Added role ${title}`);
+}
+
+
+async function mainPrompt() {
+  return inquirer
+      .prompt([
+          {
+              type: "list",
+              message: "What would you like to do?",
+              name: "action",
+              choices: [
+                "View all departments",
+                "View all roles",
+                "View all employees",
+                "View all employees by department",
+                "Add department",
+                "Add role",
+                "Add employee",
+                "Remove employee",
+                "Update employee role",
+                "Exit"
+              ]
+          }
+      ])
+}
+
+
+async function getAddEmployeeInfo() {
+  const managers = await getManagerNames();
+  const roles = await getRoles();
+  return inquirer
+      .prompt([
+          {
+              type: "input",
+              name: "first_name",
+              message: "What is the new employee's first name?"
+          },
+          {
+              type: "input",
+              name: "last_name",
+              message: "What is the new employee's last name?"
+          },
+          {
+              type: "list",
+              message: "What is the new employee's role?",
+              name: "role",
+              choices: [
+                  
+                  ...roles
+              ]
+          },
+          {
+              type: "list",
+              message: "Who is the new employee's manager?",
+              name: "manager",
+              choices: [
+             
+                  ...managers
+              ]
+          }
+      ])
+}
